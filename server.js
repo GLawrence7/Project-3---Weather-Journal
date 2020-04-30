@@ -37,7 +37,7 @@ function listening() {
 const weatherData = [];
 
 // Initialise all route with callback function
-app.get('/all', getData);
+app.get('/all', sendData);
 
 // Callback function to cary out GET '/all'
 function sendData(req, res) {
