@@ -4,7 +4,8 @@ const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q=';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+// UK date format used
+let newDate = ('0' + d.getDate()).slice(-2) + '.' + ('0' + d.getMonth()).slice(-2) + '.' + d.getFullYear();
 
 // Event listener adds function to DOM
 document.getElementById('generate').addEventListener('click', performAction);
@@ -77,11 +78,12 @@ const updateUI = async (url = '') => {
   const res = await fetch(url);
   try {
     const data = await res.json();
+    let allData = data[data.length - 1];
     console.log(data)
 
-    document.getElementById("weather").innerHTML = 'Current Weather: ' + data.currentWeather;
+    document.getElementById("weather").innerHTML = 'Current Weather: ' + allData.weather;
     document.getElementById("date").innerHTML = 'Date: ' + newDate;
-    document.getElementById("content").innerHTML = 'How I\'m feeling: ' + data.userResponse;
+    document.getElementById("content").innerHTML = 'How I\'m feeling: <br>' + allData.userResponse;
 
 } catch (error) {
     console.log("error", error);
